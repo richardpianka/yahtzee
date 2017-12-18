@@ -1,15 +1,9 @@
-package io.pianka.yahtzee.logic
+package io.pianka.yahtzee.logic.check
 
-import io.pianka.yahtzee.model.dice.{Die, Roll, RolledDie}
-
+import io.pianka.yahtzee.common.TestHelpers._
 import org.scalatest._
 
 class LowerSectionCheckerTest extends FlatSpec with Matchers {
-
-  /* Helpers */
-  private def createRoll(values: Int*) = {
-    Roll(values.map(x => RolledDie(Die(x), kept = false)))
-  }
 
   /* Three of a kind */
   // Positive
