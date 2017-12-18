@@ -38,20 +38,17 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
   // Positive
   "Four aces" should "be four of a kind" in {
     val roll = createRoll(1, 1, 1, 1, 3)
-
     LowerSectionChecker.fourOfAKind(roll) should be (true)
   }
 
   "Five sixes" should "be four of a kind" in {
     val roll = createRoll(6, 6, 6, 6, 6)
-
     LowerSectionChecker.fourOfAKind(roll) should be (true)
   }
 
   // Negative
   "One through five" should "not be four of a kind" in {
     val roll = createRoll(1, 2, 3, 4, 5)
-
     LowerSectionChecker.fourOfAKind(roll) shouldNot be (true)
   }
 
@@ -59,20 +56,57 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
   // Positive
   "Five aces" should "be a yahtzee" in {
     val roll = createRoll(1, 1, 1, 1, 1)
-
     LowerSectionChecker.yahtzee(roll) should be (true)
   }
 
   "Five sixes" should "a yahtzee" in {
     val roll = createRoll(1, 1, 1, 1, 1)
-
     LowerSectionChecker.yahtzee(roll) should be (true)
   }
 
   // Negative
   "One through five" should "not be a yahtzee" in {
     val roll = createRoll(1, 2, 3, 4, 5)
-
     LowerSectionChecker.yahtzee(roll) shouldNot be (true)
+  }
+
+  /* Straights */
+  /* Small */
+  // Positive
+  "Ace consecutive four" should "be a small straight" in {
+    val roll = createRoll(2, 1, 3, 4, 1)
+    LowerSectionChecker.smallStraight(roll) should be (true)
+  }
+
+  "Two consecutive four" should "be a small straight" in {
+    val roll = createRoll(5, 2, 3, 4, 4)
+    LowerSectionChecker.smallStraight(roll) should be (true)
+  }
+
+  "Three consecutive four" should "be a small straight" in {
+    val roll = createRoll(5, 6, 3, 4, 6)
+    LowerSectionChecker.smallStraight(roll) should be (true)
+  }
+
+  "Ace consecutive five" should "be a small straight" in {
+    val roll = createRoll(2, 5, 3, 4, 1)
+    LowerSectionChecker.smallStraight(roll) should be (true)
+  }
+
+  "Two consecutive five" should "be a small straight" in {
+    val roll = createRoll(5, 2, 3, 6, 4)
+    LowerSectionChecker.smallStraight(roll) should be (true)
+  }
+
+  /* Large */
+  // Positive
+  "Ace consecutive five" should "be a large straight" in {
+    val roll = createRoll(2, 5, 3, 4, 1)
+    LowerSectionChecker.largeStraight(roll) should be (true)
+  }
+
+  "Two consecutive five" should "be a large straight" in {
+    val roll = createRoll(5, 2, 3, 6, 4)
+    LowerSectionChecker.largeStraight(roll) should be (true)
   }
 }
