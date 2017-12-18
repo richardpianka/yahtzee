@@ -4,36 +4,52 @@ import io.pianka.yahtzee.model.dice.Roll
 
 object LowerSectionChecker {
 
-  /* Single kinds */
+  /* Multiple Same Values */
   def threeOfAKind(roll: Roll): Boolean =
     numberOfAKind(3)(roll)
 
   def fourOfAKind(roll: Roll): Boolean =
     numberOfAKind(4)(roll)
 
+  // five of a kind
   def yahtzee(roll: Roll): Boolean =
     numberOfAKind(5)(roll)
 
   /* Straights */
   def smallStraight(roll: Roll): Boolean = {
-    val sum = maxByDie(roll)
+    val maxOfDice = maxByDie(roll)
 
-    sum match {
-      case Sum(1, 1, 1, 1, _, _) => true
-      case Sum(_, 1, 1, 1, 1, _) => true
-      case Sum(_, _, 1, 1, 1, 1) => true
+    maxOfDice match {
+      case DiceStatistics(1, 1, 1, 1, _, _) => true
+      case DiceStatistics(_, 1, 1, 1, 1, _) => true
+      case DiceStatistics(_, _, 1, 1, 1, 1) => true
       case _ => false
     }
   }
 
   def largeStraight(roll: Roll): Boolean = {
-    val sum = maxByDie(roll)
+    val maxOfDice = maxByDie(roll)
 
-    sum match {
-      case Sum(1, 1, 1, 1, 1, _) => true
-      case Sum(_, 1, 1, 1, 1, 1) => true
+    maxOfDice match {
+      case DiceStatistics(1, 1, 1, 1, 1, _) => true
+      case DiceStatistics(_, 1, 1, 1, 1, 1) => true
       case _ => false
     }
+  }
+
+  /* Full House */
+  def fullHouse(roll: Roll): Boolean = {
+    val sumOfDice = sumByDie(roll)
+    val stats = Set(
+      sumOfDice.aces,
+      sumOfDice.twos,
+      sumOfDice.threes,
+      sumOfDice.fours,
+      sumOfDice.fives,
+      sumOfDice.sixes
+    )
+
+    stats == Set(0, 2, 3)
   }
 
   /* Helpers */
@@ -52,7 +68,7 @@ object LowerSectionChecker {
   }
 
   /* This whole helper will probably be useful elsewhere */
-  private case class Sum(
+  private case class DiceStatistics(
     aces:   Int = 0,
     twos:   Int = 0,
     threes: Int = 0,
@@ -62,7 +78,8 @@ object LowerSectionChecker {
   )
 
   private def sumByDie(roll: Roll) = {
-    roll.dice.map(_.die.value).foldLeft(Sum()) { (accum, value) =>
+    //TODO add memoization here
+    roll.dice.map(_.die.value).foldLeft(DiceStatistics()) { (accum, value) =>
       value match {
         case 1 => accum.copy(aces   = accum.aces   + 1)
         case 2 => accum.copy(twos   = accum.twos   + 1)
@@ -75,7 +92,8 @@ object LowerSectionChecker {
   }
 
   private def maxByDie(roll: Roll) = {
-    roll.dice.map(_.die.value).foldLeft(Sum()) { (accum, value) =>
+    //TODO add memoization here
+    roll.dice.map(_.die.value).foldLeft(DiceStatistics()) { (accum, value) =>
       value match {
         case 1 => accum.copy(aces   = Math.max(accum.aces,   1))
         case 2 => accum.copy(twos   = Math.max(accum.twos,   1))

@@ -92,6 +92,7 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
     LowerSectionChecker.smallStraight(roll) should be (true)
   }
 
+  //NOTE Large straights are also small straights
   "Ace consecutive five" should "be a small straight" in {
     val roll = createRoll(2, 5, 3, 4, 1)
     LowerSectionChecker.smallStraight(roll) should be (true)
@@ -144,5 +145,38 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
   "Five sixes" should "not be a large straight" in {
     val roll = createRoll(6, 6, 6, 6, 6)
     LowerSectionChecker.largeStraight(roll) should be (false)
+  }
+
+  /* Full Houses */
+  // Positive
+  "Two aces and three twos" should "be a full house" in {
+    val roll = createRoll(2, 3, 2, 3, 2)
+    LowerSectionChecker.fullHouse(roll) should be (true)
+  }
+
+  "Two threes and three twos" should "be a full house" in {
+    val roll = createRoll(3, 3, 2, 3, 2)
+    LowerSectionChecker.fullHouse(roll) should be (true)
+  }
+
+  "TTwo threes and three sixes" should "be a full house" in {
+    val roll = createRoll(6, 3, 6, 6, 3)
+    LowerSectionChecker.fullHouse(roll) should be (true)
+  }
+
+  // Negative
+  "Three aces" should "not be a full house" in {
+    val roll = createRoll(1, 1, 1, 2, 3)
+    LowerSectionChecker.fullHouse(roll) should be (false)
+  }
+
+  "Four twos" should "not be a full house" in {
+    val roll = createRoll(2, 1, 2, 2, 2)
+    LowerSectionChecker.fullHouse(roll) should be (false)
+  }
+
+  "Five sixes" should "not be a full house" in {
+    val roll = createRoll(6, 6, 6, 6, 6)
+    LowerSectionChecker.fullHouse(roll) should be (false)
   }
 }
