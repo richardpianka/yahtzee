@@ -27,6 +27,7 @@ object LowerSectionChecker {
     }
   }
 
+  /* This whole helper will probably be useful elsewhere */
   private case class Sum(
     aces:   Int = 0,
     twos:   Int = 0,
