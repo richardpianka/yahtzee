@@ -60,7 +60,7 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
   }
 
   "Five sixes" should "a yahtzee" in {
-    val roll = createRoll(1, 1, 1, 1, 1)
+    val roll = createRoll(6, 6, 6, 6, 6)
     LowerSectionChecker.yahtzee(roll) should be (true)
   }
 
@@ -70,8 +70,12 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
     LowerSectionChecker.yahtzee(roll) shouldNot be (true)
   }
 
-  /* Straights */
-  /* Small */
+  "Four aces" should "not be a yahtzee" in {
+    val roll = createRoll(1, 1, 1, 1, 3)
+    LowerSectionChecker.yahtzee(roll) shouldNot be (true)
+  }
+
+  /* Small Straights */
   // Positive
   "Ace consecutive four" should "be a small straight" in {
     val roll = createRoll(2, 1, 3, 4, 1)
@@ -98,7 +102,23 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
     LowerSectionChecker.smallStraight(roll) should be (true)
   }
 
-  /* Large */
+  // Negative
+  "Three aces" should "not be a small straight" in {
+    val roll = createRoll(1, 1, 1, 2, 3)
+    LowerSectionChecker.smallStraight(roll) should be (false)
+  }
+
+  "Four twos" should "not be a small straight" in {
+    val roll = createRoll(2, 1, 2, 2, 2)
+    LowerSectionChecker.smallStraight(roll) should be (false)
+  }
+
+  "Five sixes" should "not be a small straight" in {
+    val roll = createRoll(6, 6, 6, 6, 6)
+    LowerSectionChecker.smallStraight(roll) should be (false)
+  }
+
+  /* Large Straights */
   // Positive
   "Ace consecutive five" should "be a large straight" in {
     val roll = createRoll(2, 5, 3, 4, 1)
@@ -108,5 +128,21 @@ class LowerSectionCheckerTest extends FlatSpec with Matchers {
   "Two consecutive five" should "be a large straight" in {
     val roll = createRoll(5, 2, 3, 6, 4)
     LowerSectionChecker.largeStraight(roll) should be (true)
+  }
+
+  // Negative
+  "Three aces" should "not be a large straight" in {
+    val roll = createRoll(1, 1, 1, 2, 3)
+    LowerSectionChecker.largeStraight(roll) should be (false)
+  }
+
+  "Four twos" should "not be a large straight" in {
+    val roll = createRoll(2, 1, 2, 2, 2)
+    LowerSectionChecker.largeStraight(roll) should be (false)
+  }
+
+  "Five sixes" should "not be a large straight" in {
+    val roll = createRoll(6, 6, 6, 6, 6)
+    LowerSectionChecker.largeStraight(roll) should be (false)
   }
 }
