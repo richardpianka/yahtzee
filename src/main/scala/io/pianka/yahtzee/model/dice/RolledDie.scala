@@ -7,3 +7,10 @@ package io.pianka.yahtzee.model.dice
   * @param kept Whether or not the die was kept from a previous roll.
   */
 case class RolledDie(die: Die, kept: Boolean)
+
+object RolledDie {
+
+  def apply(die: Die): RolledDie = {
+    RolledDie(die, kept = false)
+  }
+}

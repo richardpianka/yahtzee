@@ -1,5 +1,6 @@
 package io.pianka.yahtzee.logic.score
 
+import io.pianka.yahtzee.common.score.Scoring
 import io.pianka.yahtzee.logic.check.LowerSectionChecker
 import io.pianka.yahtzee.model.dice.Roll
 
@@ -7,12 +8,12 @@ object LowerSectionScorer {
 
   def scoreThreeOfAKind(roll: Roll): Int = {
     require(LowerSectionChecker.threeOfAKind(roll))
-    CommonScorer.sum(roll)
+    Scoring.sumRoll(roll)
   }
 
   def scoreFourOfAKind(roll: Roll): Int = {
     require(LowerSectionChecker.fourOfAKind(roll))
-    CommonScorer.sum(roll)
+    Scoring.sumRoll(roll)
   }
 
   private val fullHouseScore = 25
@@ -42,6 +43,6 @@ object LowerSectionScorer {
   }
 
   def scoreChance(roll: Roll): Int = {
-    CommonScorer.sum(roll)
+    Scoring.sumRoll(roll)
   }
 }

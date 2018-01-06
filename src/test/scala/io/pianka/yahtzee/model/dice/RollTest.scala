@@ -21,7 +21,7 @@ class RollTest extends FlatSpec with Matchers {
 
   /* Negative */
   "Fewer than five dice" should "throw an IllegalArgumentException" in {
-    a [IllegalArgumentException] should be thrownBy {
+    an [IllegalArgumentException] should be thrownBy {
       Roll(
         List(
           RolledDie(Die(1), kept = false),
@@ -34,7 +34,7 @@ class RollTest extends FlatSpec with Matchers {
   }
 
   "More than five dice" should "throw an IllegalArgumentException" in {
-    a [IllegalArgumentException] should be thrownBy {
+    an [IllegalArgumentException] should be thrownBy {
       Roll(
         List(
           RolledDie(Die(1), kept = false),

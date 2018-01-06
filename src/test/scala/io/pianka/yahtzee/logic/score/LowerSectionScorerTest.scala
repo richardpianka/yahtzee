@@ -7,19 +7,34 @@ class LowerSectionScorerTest extends FlatSpec with Matchers {
 
   /* Three of a kind */
   // Positive
-  "A three of a kind roll" should "sum to the values of its dice" in {
+  "A three of a kind roll of aces" should "sum to the values of its dice" in {
     val roll = createRoll(1, 2, 1, 6, 1)
     LowerSectionScorer.scoreThreeOfAKind(roll) should be (11)
   }
 
-  "A three of a kind roll that meets four of a kind" should "sum to the values of its dice" in {
-    val roll = createRoll(1, 2, 1, 1,1 )
+  "A three of a kind roll of threes" should "sum to the values of its dice" in {
+    val roll = createRoll(3, 2, 3, 6, 3)
+    LowerSectionScorer.scoreThreeOfAKind(roll) should be (17)
+  }
+
+  "A three of a kind roll of aces that meets four of a kind" should "sum to the values of its dice" in {
+    val roll = createRoll(1, 2, 1, 1, 1)
     LowerSectionScorer.scoreThreeOfAKind(roll) should be (6)
+  }
+
+  "A three of a kind roll of fives that meets four of a kind" should "sum to the values of its dice" in {
+    val roll = createRoll(4, 5, 5, 5, 5)
+    LowerSectionScorer.scoreThreeOfAKind(roll) should be (24)
+  }
+
+  "A three of a kind roll of fours that meets four of a kind" should "sum to the values of its dice" in {
+    val roll = createRoll(2, 4, 4, 4, 4)
+    LowerSectionScorer.scoreThreeOfAKind(roll) should be (18)
   }
 
   // Negative
   "A non-three of a kind roll" should "throw an InvalidArgumentException" in {
-    a [IllegalArgumentException] should be thrownBy {
+    an [IllegalArgumentException] should be thrownBy {
       val roll = createRoll(1, 2, 3, 4, 5)
       LowerSectionScorer.scoreThreeOfAKind(roll) should be (15)
     }
@@ -27,14 +42,19 @@ class LowerSectionScorerTest extends FlatSpec with Matchers {
 
   /* Four of a kind */
   // Positive
-  "A four of a kind roll" should "sum to the values of its dice" in {
+  "A four of a kind roll of twos" should "sum to the values of its dice" in {
     val roll = createRoll(2, 2, 3, 2, 2)
-    LowerSectionScorer.scoreThreeOfAKind(roll) should be (11)
+    LowerSectionScorer.scoreFourOfAKind(roll) should be (11)
+  }
+
+  "A four of a kind roll of threes" should "sum to the values of its dice" in {
+    val roll = createRoll(3, 3, 6, 3, 3)
+    LowerSectionScorer.scoreFourOfAKind(roll) should be (18)
   }
 
   "A three of a kind roll that meets five of a kind (yahtzee)" should "sum to the values of its dice" in {
     val roll = createRoll(6, 6, 6, 6, 6)
-    LowerSectionScorer.scoreThreeOfAKind(roll) should be (30)
+    LowerSectionScorer.scoreFourOfAKind(roll) should be (30)
   }
 
   // Negative
@@ -106,5 +126,19 @@ class LowerSectionScorerTest extends FlatSpec with Matchers {
   "Subsequent yahtzees" should "score to one hundred" in {
     val roll = createRoll(1, 1, 1, 1, 1)
     LowerSectionScorer.scoreYahtzee(roll, first = false) should be (100)
+  }
+
+  /* Chance */
+  // Positive
+  "Arbitrary roll" should "score to the sum of the dice" in {
+    val roll = createRoll(3, 4, 6, 3, 1)
+    LowerSectionScorer.scoreChance(roll) should be (17)
+  }
+
+  // Stochastic
+  "Stochastic random roll" should "score to the sum of the dice" in {
+    val roll = randomRoll
+    val sum = roll.dice.map(_.die.value).sum
+    LowerSectionScorer.scoreChance(roll) should be (sum)
   }
 }

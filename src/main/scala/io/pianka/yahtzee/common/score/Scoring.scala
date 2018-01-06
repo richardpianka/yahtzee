@@ -1,8 +1,8 @@
-package io.pianka.yahtzee.common
+package io.pianka.yahtzee.common.score
 
 import io.pianka.yahtzee.model.dice.Roll
 
-object Utilities {
+object Scoring {
 
   /**
     * Contains some statistic (e.g., count, min, max) of each die value in a roll.
@@ -40,8 +40,20 @@ object Utilities {
         case 4 => accum.copy(fours  = accum.fours  + 1)
         case 5 => accum.copy(fives  = accum.fives  + 1)
         case 6 => accum.copy(sixes  = accum.sixes  + 1)
+        //TODO this is useful for another test, but also needs a negative test
+        case _ => accum
       }
     }
+  }
+
+  /**
+    * Simply sums the value of dice in a roll.
+    *
+    * @param roll The roll whose dice are to be summed.
+    * @return The sum of all the dice in the roll.
+    */
+  def sumRoll(roll: Roll): Int = {
+    roll.dice.map(_.die.value).sum
   }
 
   /**

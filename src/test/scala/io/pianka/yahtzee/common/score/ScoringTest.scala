@@ -1,9 +1,9 @@
-package io.pianka.yahtzee.logic.score
+package io.pianka.yahtzee.common.score
 
 import io.pianka.yahtzee.model.dice.{Die, Roll, RolledDie}
 import org.scalatest.{FlatSpec, Matchers}
 
-class CommonScorerTest extends FlatSpec with Matchers {
+class ScoringTest extends FlatSpec with Matchers {
 
   /* Positive */
   "A roll" should "sum to the values of its dice" in {
@@ -17,6 +17,6 @@ class CommonScorerTest extends FlatSpec with Matchers {
       )
     )
 
-    CommonScorer.sum(roll) should be (15)
+    Scoring.sumRoll(roll) should be (15)
   }
 }

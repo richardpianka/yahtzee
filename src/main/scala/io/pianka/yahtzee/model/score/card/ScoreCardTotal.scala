@@ -8,7 +8,7 @@ import io.pianka.yahtzee.model.score.upper.UpperSectionTotal
   *
   * @param upperSectionTotal The calculated total of the upper score card section.
   * @param lowerSectionTotal The calculated total of the lower score card section.
-  * @param grandTotal The summed total of both sections of a score card, and the final score for a player.
+  * @param grandTotal The summed total of both sections of a score card, and the final score for a player.n
   */
 case class ScoreCardTotal(
   upperSectionTotal: UpperSectionTotal,

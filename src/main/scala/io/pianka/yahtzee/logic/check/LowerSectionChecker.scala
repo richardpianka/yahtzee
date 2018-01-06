@@ -1,6 +1,6 @@
 package io.pianka.yahtzee.logic.check
 
-import io.pianka.yahtzee.common.Utilities._
+import io.pianka.yahtzee.common.score.Scoring._
 import io.pianka.yahtzee.model.dice.Roll
 
 object LowerSectionChecker {

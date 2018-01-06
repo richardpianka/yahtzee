@@ -12,13 +12,13 @@ class DieTest extends FlatSpec with Matchers {
 
   /* Negative */
   "A die" should "have a value of one or higher" in {
-    a [IllegalArgumentException] should be thrownBy {
+    an [IllegalArgumentException] should be thrownBy {
       Die(0)
     }
   }
 
   "A die" should "have a value of six or lower" in {
-    a [IllegalArgumentException] should be thrownBy {
+    an [IllegalArgumentException] should be thrownBy {
       Die(7)
     }
   }
