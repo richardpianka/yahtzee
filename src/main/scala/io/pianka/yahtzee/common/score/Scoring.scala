@@ -2,6 +2,9 @@ package io.pianka.yahtzee.common.score
 
 import io.pianka.yahtzee.model.dice.{Die, RolledDice}
 
+/**
+  * Common functions for understanding a set of rolled dice as well as unrolled dice.
+  */
 object Scoring {
 
   /**

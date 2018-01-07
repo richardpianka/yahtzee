@@ -1,7 +1,7 @@
 package io.pianka.yahtzee.common.exception
 
 /**
-  * The state of the game has been evaluated against rules and found invalid.
+  * The state of the game has been evaluated against official or chosen rules and has been found invalid.
   *
   * @param message The explanation of the rule violation
   * @param cause The parent exception causing the rule violation

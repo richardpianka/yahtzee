@@ -6,6 +6,14 @@ import io.pianka.yahtzee.model.dice.RolledDice
 
 object UpperSectionScorer {
 
+  /**
+    * Scores a full roll of dice, only including those of a particular value.  No dice of a different value are
+    * counted.  The score is a simple sum of the dice of that particular value.
+    *
+    * @param roll The roll of dice.
+    * @param value The particular value.
+    * @return
+    */
   def scoreRollByValue(roll: RolledDice, value: Int): Int = {
     val statistics = Scoring.summaryStatisticsByRoll(roll)
 

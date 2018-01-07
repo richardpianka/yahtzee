@@ -4,6 +4,12 @@ import io.pianka.yahtzee.model.score.lower.{LowerSection, LowerSectionTotal}
 
 object LowerSectionTallier extends Tallier {
 
+  /**
+    * Tallies the score of the lower section of the card.
+    *
+    * @param lowerSection The lower section of the card.
+    * @return The total tally of the lower section, including bonus.
+    */
   def tally(lowerSection: LowerSection): LowerSectionTotal = {
     val subtotal =
       value(lowerSection.threeOfAKind) +

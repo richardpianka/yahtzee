@@ -9,24 +9,52 @@ import scala.util.Random
 
 object Roller {
 
+  // for all stochastic needs of the dice rolling aspects of the game
   private val random = new Random
 
+  /**
+    * Produces a single valid random die.
+    *
+    * @return A single random die.
+    */
   def rollDie: Die = {
     Die(random.nextInt(5) + 1)
   }
 
+  /**
+    * Produces a full roll of five newly random dice.
+    *
+    * @return A fresh roll of all newly random dice.
+    */
   def rollAll: RolledDice = {
-    RolledDice(rollN(5))
+    RolledDice(rollDice(5))
   }
 
-  private def rollN(n: Int): Seq[RolledDie] = {
-    require(n <= 5)
+  /**
+    * As a helper function, rolls a number of dice which are necessarily not kept from a previous roll (if there even
+    * was one).
+    *
+    * @param number The number of dice to roll.
+    * @return A fresh roll of the number of newly rolled die or dice.
+    */
+  private def rollDice(number: Int): Seq[RolledDie] = {
+    require(number >= 1)
+    require(number <= 5)
 
-    (1 to n).map { _ =>
+    (1 to number).map { _ =>
       RolledDie(rollDie, kept = false)
     }
   }
 
+  /**
+    * For use during a player's turn to keep some dice while neither rerolling all of the previously rolled dice nor
+    * rerolling zero dice.  This method also validates that kept dice are within the previous roll.  This should be
+    * used for the second or third roll of a player's turn.
+    *
+    * @param rolledDice The previous rolled dice.
+    * @param keepers The die or dice chosen to be kept for a subsequent roll.
+    * @return A subsequent roll of dice where some were kept from a previous roll.
+    */
   def keepAndRoll(rolledDice: RolledDice, keepers: Seq[Die]): RolledDice = {
     // ensure kept dice exist in previous roll
     val canKeep = validateKeepers(rolledDice, keepers)

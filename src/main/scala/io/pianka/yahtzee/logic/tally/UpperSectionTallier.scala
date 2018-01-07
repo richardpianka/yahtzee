@@ -1,12 +1,16 @@
 package io.pianka.yahtzee.logic.tally
 
+import io.pianka.yahtzee.common.score.Rules
 import io.pianka.yahtzee.model.score.upper.{UpperSection, UpperSectionTotal}
 
 object UpperSectionTallier extends Tallier {
 
-  private val bonusThreshold = 63
-  private val bonusValue = 35
-
+  /**
+    * Tallies the score of the upper section of the card.
+    *
+    * @param upperSection The upper section of the card.
+    * @return The total tally of the upper section, including bonus.
+    */
   def tally(upperSection: UpperSection): UpperSectionTotal = {
     val subtotal =
       value(upperSection.aces) +
@@ -17,8 +21,8 @@ object UpperSectionTallier extends Tallier {
       value(upperSection.sixes)
 
     val bonus =
-      if (subtotal >= bonusThreshold) {
-        bonusValue
+      if (subtotal >= Rules.bonusThreshold) {
+        Rules.bonusValue
       } else {
         0 // no bonus :(
       }
