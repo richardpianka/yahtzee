@@ -5,6 +5,6 @@ package io.pianka.yahtzee.model.dice
   *
   * @param dice The dice in the roll, including those kept from possible previous rolls.
   */
-case class Roll(dice: Seq[RolledDie]) {
+case class RolledDice(dice: Seq[RolledDie]) {
   require(dice.length == 5)
 }

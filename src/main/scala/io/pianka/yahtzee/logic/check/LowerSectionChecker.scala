@@ -1,23 +1,23 @@
 package io.pianka.yahtzee.logic.check
 
 import io.pianka.yahtzee.common.score.Scoring._
-import io.pianka.yahtzee.model.dice.Roll
+import io.pianka.yahtzee.model.dice.RolledDice
 
 object LowerSectionChecker {
 
   /* Multiple Same Values */
-  def threeOfAKind(roll: Roll): Boolean =
+  def threeOfAKind(roll: RolledDice): Boolean =
     numberOfAKind(3)(roll)
 
-  def fourOfAKind(roll: Roll): Boolean =
+  def fourOfAKind(roll: RolledDice): Boolean =
     numberOfAKind(4)(roll)
 
   // five of a kind
-  def yahtzee(roll: Roll): Boolean =
+  def yahtzee(roll: RolledDice): Boolean =
     numberOfAKind(5)(roll)
 
   /* Straights */
-  def smallStraight(roll: Roll): Boolean = {
+  def smallStraight(roll: RolledDice): Boolean = {
     val maxOfDice = presenceByDie(roll)
 
     maxOfDice match {
@@ -28,7 +28,7 @@ object LowerSectionChecker {
     }
   }
 
-  def largeStraight(roll: Roll): Boolean = {
+  def largeStraight(roll: RolledDice): Boolean = {
     val maxOfDice = presenceByDie(roll)
 
     maxOfDice match {
@@ -39,8 +39,8 @@ object LowerSectionChecker {
   }
 
   /* Full House */
-  def fullHouse(roll: Roll): Boolean = {
-    val sumOfDice = sumByDie(roll)
+  def fullHouse(roll: RolledDice): Boolean = {
+    val sumOfDice = summaryStatisticsByRoll(roll)
     val stats = Set(
       sumOfDice.aces,
       sumOfDice.twos,
@@ -54,8 +54,8 @@ object LowerSectionChecker {
   }
 
   /* Helpers */
-  private def numberOfAKind(number: Int)(roll: Roll): Boolean = {
-    val sumOfDice = sumByDie(roll)
+  private def numberOfAKind(number: Int)(roll: RolledDice): Boolean = {
+    val sumOfDice = summaryStatisticsByRoll(roll)
 
     sumOfDice match {
       case s if s.aces   >= number => true

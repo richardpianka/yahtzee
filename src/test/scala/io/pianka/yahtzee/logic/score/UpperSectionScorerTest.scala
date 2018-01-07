@@ -3,7 +3,7 @@ package io.pianka.yahtzee.logic.score
 import org.scalatest.{FlatSpec, Matchers}
 import io.pianka.yahtzee.common.TestHelpers._
 import io.pianka.yahtzee.common.exception.IllegalRuleViolationException
-import io.pianka.yahtzee.model.dice.{Die, Roll, RolledDie}
+import io.pianka.yahtzee.model.dice.{Die, RolledDice, RolledDie}
 
 class UpperSectionScorerTest extends FlatSpec with Matchers {
 
@@ -43,7 +43,7 @@ class UpperSectionScorerTest extends FlatSpec with Matchers {
     an [IllegalRuleViolationException] should be thrownBy {
       // Die won't allow values outside of [1..6]
       val die = RolledDie(new Die(0))
-      val roll = Roll(Seq(die, die, die, die, die))
+      val roll = RolledDice(Seq(die, die, die, die, die))
       UpperSectionScorer.scoreRollByValue(roll, 0) should be (0)
     }
   }

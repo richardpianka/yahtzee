@@ -6,7 +6,7 @@ class RollTest extends FlatSpec with Matchers {
 
   /* Positive */
   "Any five dice" should "be a valid roll" in {
-    val roll = Roll(
+    val roll = RolledDice(
       List(
         RolledDie(Die(1), kept = false),
         RolledDie(Die(2), kept = false),
@@ -22,7 +22,7 @@ class RollTest extends FlatSpec with Matchers {
   /* Negative */
   "Fewer than five dice" should "throw an IllegalArgumentException" in {
     an [IllegalArgumentException] should be thrownBy {
-      Roll(
+      RolledDice(
         List(
           RolledDie(Die(1), kept = false),
           RolledDie(Die(2), kept = false),
@@ -35,7 +35,7 @@ class RollTest extends FlatSpec with Matchers {
 
   "More than five dice" should "throw an IllegalArgumentException" in {
     an [IllegalArgumentException] should be thrownBy {
-      Roll(
+      RolledDice(
         List(
           RolledDie(Die(1), kept = false),
           RolledDie(Die(2), kept = false),

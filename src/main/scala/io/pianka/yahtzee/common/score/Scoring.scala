@@ -1,6 +1,6 @@
 package io.pianka.yahtzee.common.score
 
-import io.pianka.yahtzee.model.dice.Roll
+import io.pianka.yahtzee.model.dice.{Die, RolledDice}
 
 object Scoring {
 
@@ -27,21 +27,31 @@ object Scoring {
   /**
     * Given a roll, produces the sum of each die value as a statistic summary.
     *
-    * @param roll The roll over which to be computed.
+    * @param roll The roll containing the dice over which to be summed.
     * @return The sum of each die value in the roll.
     */
-  def sumByDie(roll: Roll): RollStatistics = {
+  def summaryStatisticsByRoll(roll: RolledDice): RollStatistics = {
+    summaryStatisticsByDice(roll.dice.map(_.die))
+  }
+
+  /**
+    * Given some dice, produces the sum of each die value as a statistic summary.
+    *
+    * @param dice The dice over which to be summed.
+    * @return The sum of each die value in the dice.
+    */
+  def summaryStatisticsByDice(dice: Seq[Die]): RollStatistics = {
     //TODO add memoization here
-    roll.dice.map(_.die.value).foldLeft(RollStatistics()) { (accum, value) =>
+    dice.map(_.value).foldLeft(RollStatistics()) { (accumulator, value) =>
       value match {
-        case 1 => accum.copy(aces   = accum.aces   + 1)
-        case 2 => accum.copy(twos   = accum.twos   + 1)
-        case 3 => accum.copy(threes = accum.threes + 1)
-        case 4 => accum.copy(fours  = accum.fours  + 1)
-        case 5 => accum.copy(fives  = accum.fives  + 1)
-        case 6 => accum.copy(sixes  = accum.sixes  + 1)
+        case 1 => accumulator.copy(aces   = accumulator.aces   + 1)
+        case 2 => accumulator.copy(twos   = accumulator.twos   + 1)
+        case 3 => accumulator.copy(threes = accumulator.threes + 1)
+        case 4 => accumulator.copy(fours  = accumulator.fours  + 1)
+        case 5 => accumulator.copy(fives  = accumulator.fives  + 1)
+        case 6 => accumulator.copy(sixes  = accumulator.sixes  + 1)
         //TODO this is useful for another test, but also needs a negative test
-        case _ => accum
+        case _ => accumulator
       }
     }
   }
@@ -52,7 +62,7 @@ object Scoring {
     * @param roll The roll whose dice are to be summed.
     * @return The sum of all the dice in the roll.
     */
-  def sumRoll(roll: Roll): Int = {
+  def sumRoll(roll: RolledDice): Int = {
     roll.dice.map(_.die.value).sum
   }
 
@@ -63,16 +73,16 @@ object Scoring {
     * @param roll The roll over which to be computed.
     * @return The binary presence of each possible die in a given roll.
     */
-  def presenceByDie(roll: Roll): RollStatistics = {
+  def presenceByDie(roll: RolledDice): RollStatistics = {
     //TODO add memoization here
-    roll.dice.map(_.die.value).foldLeft(RollStatistics()) { (accum, value) =>
+    roll.dice.map(_.die.value).foldLeft(RollStatistics()) { (accumulator, value) =>
       value match {
-        case 1 => accum.copy(aces   = Math.max(accum.aces,   1))
-        case 2 => accum.copy(twos   = Math.max(accum.twos,   1))
-        case 3 => accum.copy(threes = Math.max(accum.threes, 1))
-        case 4 => accum.copy(fours  = Math.max(accum.fours,  1))
-        case 5 => accum.copy(fives  = Math.max(accum.fives,  1))
-        case 6 => accum.copy(sixes  = Math.max(accum.sixes,  1))
+        case 1 => accumulator.copy(aces   = Math.max(accumulator.aces,   1))
+        case 2 => accumulator.copy(twos   = Math.max(accumulator.twos,   1))
+        case 3 => accumulator.copy(threes = Math.max(accumulator.threes, 1))
+        case 4 => accumulator.copy(fours  = Math.max(accumulator.fours,  1))
+        case 5 => accumulator.copy(fives  = Math.max(accumulator.fives,  1))
+        case 6 => accumulator.copy(sixes  = Math.max(accumulator.sixes,  1))
       }
     }
   }
