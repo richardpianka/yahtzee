@@ -6,6 +6,11 @@ package io.pianka.yahtzee.common.score
   */
 object Rules {
 
+  //TODO figure out joker rules
+
+  /* turns */
+  val maxRolls = 3
+
   /* upper card section */
   val bonusThreshold = 63
   val bonusValue = 35

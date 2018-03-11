@@ -1,8 +1,8 @@
-package io.pianka.yahtzee.logic.dice
+package io.pianka.yahtzee.logic.roll
 
+import io.pianka.yahtzee.common.TestHelpers._
 import io.pianka.yahtzee.common.exception.IllegalRuleViolationException
 import io.pianka.yahtzee.logic.score.LowerSectionScorer
-import io.pianka.yahtzee.common.TestHelpers._
 import io.pianka.yahtzee.model.dice.Die
 import org.scalatest.{FlatSpec, Matchers}
 

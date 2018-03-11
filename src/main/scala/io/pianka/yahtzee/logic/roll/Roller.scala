@@ -1,4 +1,4 @@
-package io.pianka.yahtzee.logic.dice
+package io.pianka.yahtzee.logic.roll
 
 import io.pianka.yahtzee.common.exception.IllegalRuleViolationException
 import io.pianka.yahtzee.common.score.Scoring
